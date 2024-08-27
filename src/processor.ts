@@ -15,7 +15,7 @@ import {ContractAddress} from "./contract";
 export const processor = new SubstrateBatchProcessor()
     .setRpcEndpoint({
         url: assertNotNull(process.env.RPC_ENDPOINT, 'No RPC endpoint supplied'),
-        rateLimit: 0,
+        rateLimit: 10,
         capacity:50,
         maxBatchCallSize: 500
     })
