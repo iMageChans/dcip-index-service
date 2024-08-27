@@ -17,6 +17,8 @@ services:
     # command: ["postgres", "-c", "log_statement=all"]
   api:
     image: dcip-index-service
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       - DB_NAME=squid
       - DB_PORT=5432
@@ -39,6 +41,8 @@ services:
       - db
   processor:
     image: dcip-index-service
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       - DB_NAME=squid
       - DB_PORT=5432
