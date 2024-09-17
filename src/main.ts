@@ -7,7 +7,7 @@ import {SubscriptionEvent} from "./events/subscription";
 import {GreenPointsTransactionEvent} from "./events/point";
 import {USDTMerchantPaymentSentEvent} from "./events/payment";
 import {GivePointsUSDTEvent} from "./events/give-points";
-import {USDTTransferEvent} from "./events/usdt";
+import {USDTTransferEvent, USDTTransferFromEvent} from "./events/usdt";
 import {GreenPointTransfers, SwapTransfers, TokenTransfers} from "./utils/requests";
 
 processor.run(new TypeormDatabase({supportHotBlocks: true}), async (ctx) => {
@@ -50,6 +50,11 @@ processor.run(new TypeormDatabase({supportHotBlocks: true}), async (ctx) => {
     let USDTTransferList = USDTTransferEvent(ctx)
     for (let USDTTransfer of await USDTTransferList) {
         await TokenTransfers(USDTTransfer)
+    }
+
+    let USDTTransferFromList = USDTTransferFromEvent(ctx)
+    for (let USDTTransferFrom of await USDTTransferFromList) {
+        await TokenTransfers(USDTTransferFrom)
     }
 
 })
